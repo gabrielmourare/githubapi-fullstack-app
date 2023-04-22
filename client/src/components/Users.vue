@@ -14,13 +14,13 @@
   <nav aria-label="...">
     <ul class="pagination">
       <li class="page-item">
-       <button v-on:click="changePreviousPage" tabindex="-1"> Previous</button>
+       <button v-on:click="changePreviousPage"> Previous</button>
       </li>
-      <li class="page-item"><a class="page-link" href="/?page=1">1</a></li>
+      <li class="page-item"><a class="page-link" href="/?page=1">{{ this.previousPage }} </a></li>
       <li class="page-item ">
-        <a class="page-link" href="/?page=2">2 <span class="sr-only">(current)</span></a>
+        <a class="page-link" href="/?page=2">{{ this.page }} <span class="sr-only">(current)</span></a>
       </li>
-      <li class="page-item"><a class="page-link" href="/?page=3">3</a></li>
+      <li class="page-item"><a class="page-link" href="/?page=3"> {{this.nextPage}}</a></li>
       <li class="page-item">
         <button v-on:click="changeNextPage">Next </button>
       </li>
@@ -48,6 +48,8 @@ export default {
     Users.listUsers(this.page).then(response => {
       console.log(response)
       this.users = response.data.users
+      this.previousPage = response.data.previousPage
+      this.nextPage = response.data.nextPage
     })
   },
   methods: {
@@ -55,6 +57,8 @@ export default {
       this.page += 1
       Users.listUsers(this.page).then(response => {
         this.users = response.data.users
+        this.previousPage = response.data.previousPage
+        this.nextPage = response.data.nextPage
       })
     },
     changePreviousPage () {
@@ -64,6 +68,8 @@ export default {
       }
       Users.listUsers(this.page).then(response => {
         this.users = response.data.users
+        this.previousPage = response.data.previousPage
+        this.nextPage = response.data.nextPage
       })
     }
   }
