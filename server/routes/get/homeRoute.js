@@ -1,6 +1,6 @@
 const { Octokit } = require("octokit");
 const octokit = new Octokit({
-    auth: "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",
+    auth: "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",
     baseUrl:"https://api.github.com"
 });
 
@@ -50,15 +50,9 @@ await octokit.request("GET /users") .then (
         }
         catch(error) {
             res.send({error: error.message})
-
-        }
-        
+        }        
     }
-
-
-)
-
-    
+)    
 }
 
 module.exports = homeRoute;

@@ -14,8 +14,7 @@
   <nav aria-label="...">
     <ul class="pagination">
       <li class="page-item">
-        <a class="page-link" :href="'/?page=' + previousPage
-        " tabindex="-1">Previous</a>
+       <button v-on:click="changePreviousPage" tabindex="-1"> Previous</button>
       </li>
       <li class="page-item"><a class="page-link" href="/?page=1">1</a></li>
       <li class="page-item ">
@@ -23,7 +22,7 @@
       </li>
       <li class="page-item"><a class="page-link" href="/?page=3">3</a></li>
       <li class="page-item">
-        <a class="page-link" :href="'/?page=' + nextPage">Next</a>
+        <button v-on:click="changeNextPage">Next </button>
       </li>
     </ul>
   </nav>
@@ -41,16 +40,32 @@ export default {
       users: [],
       previousPage: 0,
       nextPage: 0,
-      currentPage: 0,
       page: 1
     }
   },
 
   mounted () {
-    Users.listUsers().then(response => {
+    Users.listUsers(this.page).then(response => {
       console.log(response)
       this.users = response.data.users
     })
+  },
+  methods: {
+    changeNextPage () {
+      this.page += 1
+      Users.listUsers(this.page).then(response => {
+        this.users = response.data.users
+      })
+    },
+    changePreviousPage () {
+      this.page -= 1
+      if (this.page === 0) {
+        this.page = 1
+      }
+      Users.listUsers(this.page).then(response => {
+        this.users = response.data.users
+      })
+    }
   }
 }
 </script>

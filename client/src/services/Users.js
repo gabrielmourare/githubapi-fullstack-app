@@ -1,7 +1,11 @@
 import {Api} from './api'
 
 export default {
-  listUsers: () => {
-    return Api.get('/')
+  listUsers: (page) => {
+    return Api.get('/', {
+      params: {
+        page: page
+      }
+    })
   }
 }
