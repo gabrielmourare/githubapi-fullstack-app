@@ -1,6 +1,6 @@
 const { Octokit } = require("octokit");
 const octokit = new Octokit({
-    auth: "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",
+    auth: process.env.TOKEN,
     baseUrl:"https://api.github.com"
 });
 
